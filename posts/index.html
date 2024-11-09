@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvizHer | Posts</title>
+
+    <!--Linked Files-->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/primary.css" />
+    <link rel="stylesheet" href="../assets/css/secondary.css" />
+    <link rel="stylesheet" href="../assets/css/sroll-reveal.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <button class="progress-btn">
+        <!-- SVG for circular progress -->
+        <svg class="progress-circle" width="50" height="50" viewBox="0 0 50 50">
+          <!-- Background circle -->
+          <circle class="progress-circle-bg" cx="25" cy="25" r="24" fill="none" stroke="#e6e6e6" stroke-width="2"/>
+          <!-- Progress circle -->
+          <circle class="progress-circle-path" cx="25" cy="25" r="24" fill="none" stroke="#0a71ee" stroke-width="2"/>
+        </svg>
+        <!-- Arrow icon -->
+        <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <header>
+        <div class="header-items">
+            <a href="../" class="title">
+                <img src="../assets/img/logo.png" alt="logo-image">
+                <h1>InvizHer</h1>
+            </a>
+
+            <ul class="desktop-nav-list">
+                <li><a href="../">Home</a></li>
+                <li><a href="..">Posts</a></li>
+                <li><a href="posts/?category=notes">Notes</a></li>
+                <li><a href="posts/?category=project">Projects</a></li>
+            </ul>
+
+            <div class="header-icons">
+                <a class="support-btn" onclick="toggleDonorHeart(this)">
+                    <i class="fa-regular fa-heart"></i>
+                </a>
+                  
+
+                <div class="toggle-btns">
+                    <button class="openbtn" id="openBtn" onclick="toggleNav()"><i class="fa-solid fa-bars-staggered"></i></button>
+                    <button class="closebtn hide" id="closeBtn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+        </div>
+        <nav class="sidebar" id="mySidebar">
+            <ul class="nav-list">
+                <li><i class="fa-solid fa-house"></i><a href="../">Home</a></li>
+                <li><i class="fa-solid fa-file-pen"></i><a href="..">Posts</a></li>
+                <li><i class="fa-solid fa-file-code"></i><a href="posts/?category=notes">Notes</a></li>
+                <li><i class="fa-brands fa-html5"></i><a href="posts/?category=project">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--======================== MAIN CONTENT ===================-->
+    <main class="main-content container">
+        <div class="main-header">
+            <form class="search-section search-form scroll-reveal-top delay-200">
+                <input type="text" class="search-input" placeholder="Search ...">
+                <button type="submit" class="search-button"><i class='bx bx-search-alt'></i></button>
+            </form>
+    
+            <div class="categories scroll-reveal-top delay-400">
+                <select class="category-dropdown" aria-label="Select category">
+                  <option value="">All Categories</option>
+                  <option value="webdev">Web Development</option>
+                  <option value="notes">Notes</option>
+                  <option value="technology">Technology</option>
+                  <option value="project">Projects</option>
+                </select>
+              </div>
+        </div>
+
+        <div class="articles-grid scroll-reveal delay-300">
+            <!-- Articles will be dynamically loaded here -->
+        </div>
+
+        <div class="pagination">
+            <!-- Pagination will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <footer class="footer scroll-reveal-fade delay-400">
+        <div class="footer-container container">
+            <a href="#" class="title">
+                <img src="../assets/img/logo.png" alt="logo-image">
+                <h1>InvizHer</h1>
+            </a>
+            <div class="footer-social">
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-telegram"></i></a>
+                <a href=""><i class="fa-brands fa-github"></i></a>
+                <a href=""><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <p class="copyright">© InvizHer-2024. All rigths reserved</p>
+        </div>
+    </footer>
+
+    <div id="donationOverlay" class="donation-overlay">
+        <div class="donation-modal">
+          <div class="donation-header">
+            <h2>Support Our Work</h2>
+            <button class="close-btn" onclick="closeDonationModal()">&times;</button>
+          </div>
+          <div class="donation-content">
+            <p>Your support helps us continue creating valuable content and resources. Any contribution, no matter how small, makes a difference!</p>
+            <p>Choose any amount you wish to donate. We appreciate your generosity! 🙏</p>
+            <button class="donate-btn" onclick="initiatePayment()">Make a Donation</button>
+          </div>
+          <div id="redirectMessage" class="redirect-message" style="display: none;">
+            <p>Thank you for your support! You will be redirected to the payment page in <span id="countdown">5</span> seconds...</p>
+          </div>
+        </div>
+    </div>
+    
+    <script src="../assets/js/primary.js"></script>
+    <script src="../assets/js/secondary.js"></script>
+
+    
+</body>
+</html>

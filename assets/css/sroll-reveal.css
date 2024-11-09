@@ -1,0 +1,62 @@
+/* Base class for scroll reveal elements */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  
+  /* Active class that will be added when element is in viewport */
+  .scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Different animation variations */
+  .scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-reveal-top {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-reveal-fade {
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+  }
+  
+  /* Active states for variations */
+  .scroll-reveal-left.active,
+  .scroll-reveal-right.active,
+  .scroll-reveal-top.active,
+  .scroll-reveal-fade.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Different delay classes */
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+  .delay-400 { transition-delay: 400ms; }
+  .delay-500 { transition-delay: 500ms; }
+  .delay-600 { transition-delay: 600ms; }
+  .delay-700 { transition-delay: 700ms; }
+  .delay-800 { transition-delay: 800ms; }
+  .delay-900 { transition-delay: 900ms; }
+  
+  /* Different duration classes */
+  .duration-500 { transition-duration: 500ms; }
+  .duration-750 { transition-duration: 750ms; }
+  .duration-1000 { transition-duration: 1000ms; }
