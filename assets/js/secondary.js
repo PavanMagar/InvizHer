@@ -642,7 +642,7 @@ function renderHomePagePosts() {
   // Initialize PostsScrollReveal for home page posts
   const postsScrollReveal = new PostsScrollReveal({
     threshold: 0.2,
-    baseDelay: 100
+    baseDelay: 200
   });
 }
 
@@ -673,7 +673,7 @@ function renderHomePageProjects() {
   // Initialize PostsScrollReveal for home page projects
   const postsScrollReveal = new PostsScrollReveal({
     threshold: 0.2,
-    baseDelay: 100
+    baseDelay: 200
   });
 }
 
