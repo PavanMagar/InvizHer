@@ -330,6 +330,18 @@ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; 
             return null;
         }
 
+        function startCountdown(elementId, seconds, callback) {
+            const element = document.getElementById(elementId);
+            let timeLeft = seconds;
+            const interval = setInterval(() => {
+                element.innerText = timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    callback();
+                }
+            }, 1000);
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
             const params = new URLSearchParams(window.location.search);
             const token = params.get("token");
@@ -341,22 +353,27 @@ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; 
                     return;
                 }
 
-                document.getElementById("safe-redirect").style.display = "block";
+                // First Timer Logic
+                const topDiv = document.getElementById("top-timer-div");
+                topDiv.style.display = "block";
+                startCountdown("top-timer", 5, () => {
+                    document.getElementById("scroll-btn").style.display = "inline-block";
+                });
 
-                const countdown = 5; // Countdown timer in seconds
-                let current = countdown;
+                // Scroll to Bottom Button Logic
+                document.getElementById("scroll-btn").addEventListener("click", () => {
+                    document.getElementById("bottom-timer-div").scrollIntoView({ behavior: "smooth" });
 
-                const interval = setInterval(() => {
-                    document.getElementById("timer").innerText = current--;
-                    if (current < 0) {
-                        clearInterval(interval);
-                        document.getElementById("original-link-btn").style.display = "inline-block";
-                        document.getElementById("timer-container").style.display = "none";
-
-                        document.getElementById("original-link-btn").onclick = () => {
+                    // Second Timer Logic
+                    const bottomDiv = document.getElementById("bottom-timer-div");
+                    bottomDiv.style.display = "block";
+                    startCountdown("bottom-timer", 5, () => {
+                        const linkButton = document.getElementById("original-link-btn");
+                        linkButton.style.display = "inline-block";
+                        linkButton.onclick = () => {
                             window.location.href = originalLink;
                         };
-                    }
-                }, 1000);
+                    });
+                });
             }
         });
