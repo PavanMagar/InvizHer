@@ -313,7 +313,7 @@ class ScrollReveal {
 
 
 //========================== Redirect link js =========================
-const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; // Replace with your Firebase DB URL
+ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; // Replace with your Firebase DB URL
         const FIREBASE_API_KEY = "AIzaSyA01OQxBRHHx7Z4ukglZPCBzsQi0gO9pKE"; // Replace with your Firebase API key
 
         async function getOriginalLink(token) {
@@ -330,11 +330,12 @@ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; 
             return null;
         }
 
-        function startCountdown(elementId, seconds, callback) {
-            const element = document.getElementById(elementId);
-            let timeLeft = seconds;
+        function startTimer(timerElementId, duration, callback) {
+            const timerElement = document.getElementById(timerElementId);
+            let timeLeft = duration;
+
             const interval = setInterval(() => {
-                element.innerText = timeLeft--;
+                timerElement.innerText = timeLeft--;
                 if (timeLeft < 0) {
                     clearInterval(interval);
                     callback();
@@ -353,21 +354,21 @@ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; 
                     return;
                 }
 
-                // First Timer Logic
+                // Top Timer Logic
                 const topDiv = document.getElementById("top-timer-div");
                 topDiv.style.display = "block";
-                startCountdown("top-timer", 5, () => {
+                startTimer("top-timer", 5, () => {
                     document.getElementById("scroll-btn").style.display = "inline-block";
                 });
 
-                // Scroll to Bottom Button Logic
+                // Scroll Button Logic
                 document.getElementById("scroll-btn").addEventListener("click", () => {
                     document.getElementById("bottom-timer-div").scrollIntoView({ behavior: "smooth" });
 
-                    // Second Timer Logic
+                    // Bottom Timer Logic
                     const bottomDiv = document.getElementById("bottom-timer-div");
                     bottomDiv.style.display = "block";
-                    startCountdown("bottom-timer", 5, () => {
+                    startTimer("bottom-timer", 5, () => {
                         const linkButton = document.getElementById("original-link-btn");
                         linkButton.style.display = "inline-block";
                         linkButton.onclick = () => {
