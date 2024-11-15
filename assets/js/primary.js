@@ -310,3 +310,53 @@ class ScrollReveal {
     // Example of how to refresh for dynamic content
     // scrollReveal.refresh();
   });
+
+
+//========================== Redirect link js =========================
+const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; // Replace with your Firebase DB URL
+        const FIREBASE_API_KEY = "AIzaSyA01OQxBRHHx7Z4ukglZPCBzsQi0gO9pKE"; // Replace with your Firebase API key
+
+        async function getOriginalLink(token) {
+            const response = await fetch(`${FIREBASE_URL}?auth=${FIREBASE_API_KEY}`);
+            const data = await response.json();
+
+            if (data) {
+                for (const key in data) {
+                    if (data[key].token === token) {
+                        return data[key].originalLink;
+                    }
+                }
+            }
+            return null;
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get("token");
+
+            if (token) {
+                const originalLink = await getOriginalLink(token);
+                if (!originalLink) {
+                    alert("Invalid token or link not found.");
+                    return;
+                }
+
+                document.getElementById("safe-redirect").style.display = "block";
+
+                const countdown = 5; // Countdown timer in seconds
+                let current = countdown;
+
+                const interval = setInterval(() => {
+                    document.getElementById("timer").innerText = current--;
+                    if (current < 0) {
+                        clearInterval(interval);
+                        document.getElementById("original-link-btn").style.display = "inline-block";
+                        document.getElementById("timer-container").style.display = "none";
+
+                        document.getElementById("original-link-btn").onclick = () => {
+                            window.location.href = originalLink;
+                        };
+                    }
+                }, 1000);
+            }
+        });
