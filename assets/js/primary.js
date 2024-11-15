@@ -363,18 +363,21 @@ class ScrollReveal {
 
                 // Scroll Button Logic
                 document.getElementById("scroll-btn").addEventListener("click", () => {
-                    document.getElementById("bottom-timer-div").scrollIntoView({ behavior: "smooth" });
-
-                    // Bottom Timer Logic
                     const bottomDiv = document.getElementById("bottom-timer-div");
                     bottomDiv.style.display = "block";
-                    startTimer("bottom-timer", 5, () => {
-                        const linkButton = document.getElementById("original-link-btn");
-                        linkButton.style.display = "inline-block";
-                        linkButton.onclick = () => {
-                            window.location.href = originalLink;
-                        };
-                    });
+
+                    // Ensure scrolling occurs after the bottom timer div is fully rendered
+                    setTimeout(() => {
+                        bottomDiv.scrollIntoView({ behavior: "smooth" });
+                        // Bottom Timer Logic
+                        startTimer("bottom-timer", 5, () => {
+                            const linkButton = document.getElementById("original-link-btn");
+                            linkButton.style.display = "inline-block";
+                            linkButton.onclick = () => {
+                                window.location.href = originalLink;
+                            };
+                        });
+                    }, 100); // Small delay to ensure the element is rendered
                 });
             }
         });
