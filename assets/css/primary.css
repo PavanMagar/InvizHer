@@ -1238,13 +1238,14 @@ section{
 
 }
 
-#safe-redirect {
+.timer-div {
             display: none;
-            margin-top: 20px;
+            margin: 20px 0;
             padding: 20px;
             border: 1px solid #ccc;
             background-color: #f9f9f9;
         }
-        #original-link-btn {
+        #scroll-btn, #original-link-btn {
             display: none;
+            margin-top: 10px;
         }
