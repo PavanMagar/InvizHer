@@ -313,7 +313,7 @@ class ScrollReveal {
 
 
 //========================== Redirect link js =========================
-const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; // Replace with your Firebase DB URL
+ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; // Replace with your Firebase DB URL
         const FIREBASE_API_KEY = "AIzaSyA01OQxBRHHx7Z4ukglZPCBzsQi0gO9pKE"; // Replace with your Firebase API key
 
         async function getOriginalLink(token) {
@@ -330,27 +330,8 @@ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; 
             return null;
         }
 
-        // Start the first timer (Top Timer)
-        function startTopTimer(duration, callback) {
-            const timerElement = document.getElementById("top-timer");
-            const topDiv = document.getElementById("top-timer-div");
-            topDiv.style.display = "block";  // Show the top timer div
-            let timeLeft = duration;
-
-            const interval = setInterval(() => {
-                timerElement.innerText = timeLeft--;
-                if (timeLeft < 0) {
-                    clearInterval(interval);
-                    callback();
-                }
-            }, 1000);
-        }
-
-        // Start the second timer (Bottom Timer)
-        function startBottomTimer(duration, callback) {
-            const timerElement = document.getElementById("bottom-timer");
-            const bottomDiv = document.getElementById("bottom-timer-div");
-            bottomDiv.style.display = "block";  // Show the bottom timer div
+        function startTimer(timerElementId, duration, callback) {
+            const timerElement = document.getElementById(timerElementId);
             let timeLeft = duration;
 
             const interval = setInterval(() => {
@@ -373,27 +354,26 @@ const FIREBASE_URL = "https://inz-site-default-rtdb.firebaseio.com/links.json"; 
                     return;
                 }
 
-                // Start the top timer with a 5-second countdown
-                startTopTimer(5, () => {
-                    // After the top timer ends, show the "Go to Bottom" button
+                // Top Timer Logic
+                const topDiv = document.getElementById("top-timer-div");
+                topDiv.style.display = "block";
+                startTimer("top-timer", 5, () => {
                     document.getElementById("scroll-btn").style.display = "inline-block";
                 });
 
-                // Scroll button logic
+                // Scroll Button Logic
                 document.getElementById("scroll-btn").addEventListener("click", () => {
                     document.getElementById("bottom-timer-div").scrollIntoView({ behavior: "smooth" });
 
-                    // Start the bottom timer with a 5-second countdown
-                    startBottomTimer(5, () => {
+                    // Bottom Timer Logic
+                    const bottomDiv = document.getElementById("bottom-timer-div");
+                    bottomDiv.style.display = "block";
+                    startTimer("bottom-timer", 5, () => {
                         const linkButton = document.getElementById("original-link-btn");
                         linkButton.style.display = "inline-block";
                         linkButton.onclick = () => {
-                            window.location.href = originalLink;  // Redirect to the original link after timer ends
+                            window.location.href = originalLink;
                         };
-                    });
-                });
-            }
-        });
                     });
                 });
             }
