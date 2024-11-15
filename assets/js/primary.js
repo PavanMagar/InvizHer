@@ -330,8 +330,27 @@ class ScrollReveal {
             return null;
         }
 
-        function startTimer(timerElementId, duration, callback) {
-            const timerElement = document.getElementById(timerElementId);
+        // Start Top Timer
+        function startTopTimer(duration, callback) {
+            const timerElement = document.getElementById("top-timer");
+            const topDiv = document.getElementById("top-timer-div");
+            topDiv.style.display = "block";
+            let timeLeft = duration;
+
+            const interval = setInterval(() => {
+                timerElement.innerText = timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    callback();
+                }
+            }, 1000);
+        }
+
+        // Start Bottom Timer
+        function startBottomTimer(duration, callback) {
+            const timerElement = document.getElementById("bottom-timer");
+            const bottomDiv = document.getElementById("bottom-timer-div");
+            bottomDiv.style.display = "block";
             let timeLeft = duration;
 
             const interval = setInterval(() => {
@@ -354,10 +373,9 @@ class ScrollReveal {
                     return;
                 }
 
-                // Top Timer Logic
-                const topDiv = document.getElementById("top-timer-div");
-                topDiv.style.display = "block";
-                startTimer("top-timer", 5, () => {
+                // Start Top Timer (5 seconds)
+                startTopTimer(5, () => {
+                    // Show the scroll button after the top timer ends
                     document.getElementById("scroll-btn").style.display = "inline-block";
                 });
 
@@ -365,15 +383,17 @@ class ScrollReveal {
                 document.getElementById("scroll-btn").addEventListener("click", () => {
                     document.getElementById("bottom-timer-div").scrollIntoView({ behavior: "smooth" });
 
-                    // Bottom Timer Logic
-                    const bottomDiv = document.getElementById("bottom-timer-div");
-                    bottomDiv.style.display = "block";
-                    startTimer("bottom-timer", 5, () => {
+                    // Start Bottom Timer (5 seconds)
+                    startBottomTimer(5, () => {
                         const linkButton = document.getElementById("original-link-btn");
                         linkButton.style.display = "inline-block";
                         linkButton.onclick = () => {
                             window.location.href = originalLink;
                         };
+                    });
+                });
+            }
+        });
                     });
                 });
             }
