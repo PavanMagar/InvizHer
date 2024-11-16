@@ -345,7 +345,7 @@ class ScrollReveal {
 
         document.addEventListener("DOMContentLoaded", async () => {
             const params = new URLSearchParams(window.location.search);
-            const token = params.get("token");
+            const token = params.get("safe");
 
             if (token) {
                 const originalLink = await getOriginalLink(token);
