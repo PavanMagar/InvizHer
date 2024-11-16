@@ -4,57 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Page</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f9fafb;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .article {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .article h1 {
+            font-size: 2rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .article p {
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
         .timer-div {
             display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-        #scroll-btn, #original-link-btn {
+
+        .timer-content {
+            margin-bottom: 1rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1rem;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .hide-spinner {
             display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .timer-text {
+            font-size: 1.125rem;
+            color: #4b5563;
+        }
+
+        .timer-number {
+            font-weight: bold;
+            color: #3b82f6;
+        }
+
+        .btn {
+            display: none;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-blue {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-green {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-green:hover {
+            background-color: #059669;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <div class="container mx-auto px-4 py-8 max-w-3xl">
+<body>
+    <div class="container">
+        <!-- Top Timer Section -->
+        <div id="top-timer-div" class="timer-div">
+            <div class="timer-content">
+                <div id="top-spinner" class="spinner"></div>
+                <p class="timer-text">Please wait <span id="top-timer" class="timer-number">10</span> seconds...</p>
+            </div>
+            <button id="scroll-btn" class="btn btn-blue">Continue to Link</button>
+        </div>
         <!-- Article Content -->
-        <article id="article-content" class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">My Article Title</h1>
-            <div class="prose max-w-none">
-                <p class="text-gray-700 mb-4">This is the content of the article. Scroll down to see more!</p>
-                <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+        <article class="article">
+            
+            <h1>My Article Title</h1>
+            <div>
+                <p>This is the content of the article. Scroll down to see more!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacinia sapien nec libero sollicitudin.</p>
             </div>
         </article>
 
-        <!-- Top Timer Section -->
-        <div id="top-timer-div" class="timer-div bg-white rounded-lg shadow-md p-6 mb-8">
-            <div class="text-center">
-                <div class="mb-4">
-                    <svg class="animate-spin h-8 w-8 text-blue-600 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <p class="text-lg text-gray-700">Please wait <span id="top-timer" class="font-bold text-blue-600">10</span> seconds...</p>
-                </div>
-                <button id="scroll-btn" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">
-                    Continue to Link
-                </button>
-            </div>
-        </div>
+        
 
         <!-- Bottom Timer Section -->
-        <div id="bottom-timer-div" class="timer-div bg-white rounded-lg shadow-md p-6">
-            <div class="text-center">
-                <div class="mb-4">
-                    <svg class="animate-spin h-8 w-8 text-blue-600 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <p class="text-lg text-gray-700">Almost there! Please wait <span id="bottom-timer" class="font-bold text-blue-600">5</span> seconds...</p>
-                </div>
-                <button id="original-link-btn" class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200">
-                    Get Your Link
-                </button>
+        <div id="bottom-timer-div" class="timer-div">
+            <div class="timer-content">
+                <div id="bottom-spinner" class="spinner"></div>
+                <p class="timer-text">Almost there! Please wait <span id="bottom-timer" class="timer-number">5</span> seconds...</p>
             </div>
+            <button id="original-link-btn" class="btn btn-green">Get Your Link</button>
         </div>
     </div>
 
@@ -81,8 +178,9 @@
             }
         }
 
-        function startTimer(timerElementId, duration, callback) {
+        function startTimer(timerElementId, spinnerId, duration, callback) {
             const timerElement = document.getElementById(timerElementId);
+            const spinner = document.getElementById(spinnerId);
             let timeLeft = duration;
 
             return new Promise((resolve) => {
@@ -90,6 +188,7 @@
                     timerElement.innerText = timeLeft--;
                     if (timeLeft < 0) {
                         clearInterval(interval);
+                        spinner.classList.add('hide-spinner');
                         if (callback) callback();
                         resolve();
                     }
@@ -114,7 +213,7 @@
 
             // Start the top timer immediately
             document.getElementById('top-timer-div').style.display = 'block';
-            await startTimer("top-timer", 10, () => {
+            await startTimer("top-timer", "top-spinner", 10, () => {
                 document.getElementById("scroll-btn").style.display = "inline-block";
             });
 
@@ -123,12 +222,13 @@
                 bottomDiv.style.display = "block";
                 bottomDiv.scrollIntoView({ behavior: "smooth" });
 
-                await startTimer("bottom-timer", 5);
-                const linkButton = document.getElementById("original-link-btn");
-                linkButton.style.display = "inline-block";
-                linkButton.onclick = () => {
-                    window.location.href = originalLink;
-                };
+                await startTimer("bottom-timer", "bottom-spinner", 5, () => {
+                    document.getElementById("original-link-btn").style.display = "inline-block";
+                });
+            });
+
+            document.getElementById("original-link-btn").addEventListener("click", () => {
+                window.location.href = originalLink;
             });
         });
     </script>
