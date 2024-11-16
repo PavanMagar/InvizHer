@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Page</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         .timer-div {
             display: none;
@@ -13,26 +12,12 @@
         #scroll-btn, #original-link-btn {
             display: none;
         }
-        .captcha-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
     </style>
 </head>
 <body class="bg-gray-50">
     <div class="container mx-auto px-4 py-8 max-w-3xl">
-        <!-- Initial Captcha Section -->
-        <div id="captcha-section" class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Please Complete Verification</h2>
-            <div class="captcha-container">
-                <!-- Replace YOUR_SITE_KEY with the actual key from Google reCAPTCHA admin -->
-                <div class="g-recaptcha" data-sitekey="6LfOqIAqAAAAANzZcfjF3QZ54nGw7_7DLqducwiD" data-callback="onCaptchaSuccess"></div>
-            </div>
-        </div>
-
         <!-- Article Content -->
-        <article id="article-content" class="bg-white rounded-lg shadow-md p-6 mb-8 opacity-50">
+        <article id="article-content" class="bg-white rounded-lg shadow-md p-6 mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-4">My Article Title</h1>
             <div class="prose max-w-none">
                 <p class="text-gray-700 mb-4">This is the content of the article. Scroll down to see more!</p>
@@ -48,7 +33,7 @@
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <p class="text-lg text-gray-700">Please wait <span id="top-timer" class="font-bold text-blue-600">5</span> seconds...</p>
+                    <p class="text-lg text-gray-700">Please wait <span id="top-timer" class="font-bold text-blue-600">10</span> seconds...</p>
                 </div>
                 <button id="scroll-btn" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">
                     Continue to Link
@@ -112,19 +97,9 @@
             });
         }
 
-        function onCaptchaSuccess(response) {
-            // You can verify the captcha response on your server if needed
-            document.getElementById('captcha-section').style.display = 'none';
-            document.getElementById('article-content').classList.remove('opacity-50');
-            document.getElementById('top-timer-div').style.display = 'block';
-            startTimer("top-timer", 5, () => {
-                document.getElementById("scroll-btn").style.display = "inline-block";
-            });
-        }
-
         document.addEventListener("DOMContentLoaded", async () => {
             const params = new URLSearchParams(window.location.search);
-            const token = params.get("safe"); // Changed from "token" to "safe"
+            const token = params.get("safe");
 
             if (!token) {
                 alert("Invalid access. Please use a valid link.");
@@ -136,6 +111,12 @@
                 alert("Invalid token or link not found.");
                 return;
             }
+
+            // Start the top timer immediately
+            document.getElementById('top-timer-div').style.display = 'block';
+            await startTimer("top-timer", 10, () => {
+                document.getElementById("scroll-btn").style.display = "inline-block";
+            });
 
             document.getElementById("scroll-btn").addEventListener("click", async () => {
                 const bottomDiv = document.getElementById("bottom-timer-div");
